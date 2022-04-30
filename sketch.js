@@ -22,6 +22,7 @@ wolf.scale = 0.3
 invisibleGround = createSprite(350,500,700,10)
 invisibleGround.visible = false;
 
+logGroup = new Group()
 }
 
 function draw() {
@@ -39,19 +40,33 @@ wolf.velocityY+=0.6
 
 wolf.collide(invisibleGround)
 
- wolf.debug = true;
- wolf.setCollider("rectangle", 100, 100, 20, 80, -45)
 
- spawnObstacle()
+
+ spawnLogs()
  drawSprites()
  
- wolf.collide(log)
-}
+ if(wolf.isTouching(logGroup)){
+    var bg = createSprite(300,300,600,600)
+    bg.shapeColor="black"
+    textSize(25)
+    text("Game Over",300,300);
+    
+    if(ghost.y > 600){
+      var bg = createSprite(300,300,600,600)
+      bg.shapeColor="black"
+      textSize(25)
+      text("Game Over",300,300);
+      
+    
+    }
+  }
+ }
 
 
 
 
-function spawnObstacle(){
+
+function spawnLogs(){
   
     if(frameCount%88 == 0){
       log = createSprite(600,480,20,20)
@@ -60,7 +75,7 @@ function spawnObstacle(){
       log.addImage(logImg)
       log.velocityX = 5;
       log.depth = wolf.depth - 1
-     
+     logGroup.add(log)
     }
 
   }
